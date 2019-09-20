@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var OBJECTS_COUNT = 8;
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -26,7 +26,7 @@ var PIN_HEIGHT = 70;
 var DESCRIPRION_PREFIX = 'Описание 0';
 var DESCRIPTION_SUFFIX = '';
 var AVATAR_PREFIX = 'img/avatars/user0';
-var AVATAR_SUFFIX = '.png'
+var AVATAR_SUFFIX = '.png';
 var TITLE_PREFIX = 'предложение 0';
 var TITLE_SUFFIX = '';
 
