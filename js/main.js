@@ -33,7 +33,6 @@ var TITLE_SUFFIX = '';
 var similarOffers = [];
 var map = document.querySelector('.map');
 var mapPins = document.querySelector('.map__pins');
-var fragment = document.createDocumentFragment();
 var pinsTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var getRandomElement = function (sourceArray) {
@@ -90,6 +89,8 @@ var generateSimilarOffers = function (count) {
 var renderPins = function (count) {
   var pinsElement;
   var similarOffer = {};
+  var fragment = document.createDocumentFragment();
+
   for (var i = 0; i < count; i++) {
     similarOffer = similarOffers[i];
     pinsElement = pinsTemplate.cloneNode(true);
