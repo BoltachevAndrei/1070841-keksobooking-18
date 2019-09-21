@@ -1,6 +1,6 @@
 'use strict';
 
-var OBJECTS_COUNT = 8;
+var PINS_COUNT = 8;
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var MIN_PRICE = 100;
@@ -105,6 +105,6 @@ var showElement = function (element) {
   element.classList.remove('map--faded');
 };
 
-generateSimilarOffers(OBJECTS_COUNT);
-renderPins(OBJECTS_COUNT);
+generateSimilarOffers(PINS_COUNT);
+renderPins(PINS_COUNT);
 showElement(map);
