@@ -123,7 +123,6 @@ var renderPins = function (count) {
   var pinsElement;
   var similarOffer = {};
   var fragment = document.createDocumentFragment();
-
   for (var i = 0; i < count; i++) {
     similarOffer = similarOffers[i];
     pinsElement = pinsTemplate.cloneNode(true);
@@ -136,22 +135,13 @@ var renderPins = function (count) {
 };
 
 var renderOfferType = function (offerType) {
-  var type;
-  switch (offerType) {
-    case 'palace':
-      type = 'Дворец';
-      break;
-    case 'flat':
-      type = 'Квартира';
-      break;
-    case 'house':
-      type = 'Дом';
-      break;
-    case 'bungalo':
-      type = 'Бунгало';
-      break;
-  }
-  return type;
+  var offerTypes = {
+    'palace': 'Дворец',
+    'flat': 'Квартира',
+    'house': 'Дом',
+    'bungalo': 'Бунгало'
+  };
+  return offerTypes[offerType];
 };
 
 var renderPhoto = function (offerPhoto, card) {
