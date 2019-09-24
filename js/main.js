@@ -152,9 +152,9 @@ var renderPhoto = function (offerPhoto, card) {
     photo.src = offerPhoto[0];
   } else if (offerPhoto.length > 1) {
     photo.src = offerPhoto[0];
-    for (var k = 1; k < offerPhoto.length; k++) {
+    for (var i = 1; i < offerPhoto.length; i++) {
       var newPhoto = photo.cloneNode(true);
-      newPhoto.src = offerPhoto[k];
+      newPhoto.src = offerPhoto[i];
       photo.parentNode.appendChild(newPhoto);
     }
   }
