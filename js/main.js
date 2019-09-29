@@ -96,6 +96,7 @@ var adFormSubmit = adForm.querySelector('.ad-form__submit');
 var adFormRoomNumber = adForm.querySelector('#room_number');
 var adFormCapacity = adForm.querySelector('#capacity');
 var adFormInputAddress = adForm.querySelector('#address');
+var isPageActiveState = false;
 
 var getRandomElement = function (sourceArray) {
   return sourceArray[Math.floor(Math.random() * sourceArray.length)];
@@ -290,7 +291,11 @@ var setPageActiveState = function () {
   enableFormElement(mapFilters.querySelector('fieldset'));
   adFormInputAddress.value = getElementPosition(mapPinMain, PIN_MAIN_ENABLED, true);
   adForm.classList.remove('ad-form--disabled');
+  generateSimilarOffers(PINS_COUNT);
+  renderPins(PINS_COUNT);
+  renderCard(similarOffers[0]);
   showElement(map);
+  isPageActiveState = true;
 };
 
 var setPageInactiveState = function () {
@@ -301,11 +306,13 @@ var setPageInactiveState = function () {
 };
 
 mapPinMain.addEventListener('mousedown', function () {
-  setPageActiveState();
+  if (!isPageActiveState) {
+    setPageActiveState();
+  }
 });
 
 document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY && evt.target === mapPinMain) {
+  if (evt.keyCode === ENTER_KEY && evt.target === mapPinMain && !isPageActiveState) {
     setPageActiveState();
   }
 });
@@ -320,3 +327,4 @@ adFormSubmit.addEventListener('click', function () {
 
 setElementAttribute(adForm, FORM_ATTRIBUTES);
 setPageInactiveState();
+
