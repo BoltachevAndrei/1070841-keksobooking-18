@@ -6,6 +6,7 @@
   };
 
   window.utils = {
+    ENTER_KEY: 13,
     getRandomElement: function (sourceArray) {
       return sourceArray[Math.floor(Math.random() * sourceArray.length)];
     },

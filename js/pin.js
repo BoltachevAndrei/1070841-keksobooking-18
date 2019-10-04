@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var ENTER_KEY = 13;
-
   var pinsTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var mapPins = document.querySelector('.map__pins');
 
@@ -67,7 +65,7 @@
   });
 
   document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEY && evt.target === window.map.mapPinMain && !window.map.isPageActiveState) {
+    if (evt.keyCode === window.utils.ENTER_KEY && evt.target === window.map.mapPinMain && !window.map.isPageActiveState) {
       setPageActiveState();
     }
   });
