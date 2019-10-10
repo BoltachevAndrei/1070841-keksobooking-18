@@ -44,9 +44,6 @@
     window.utils.enableFormElement(window.map.mapFilters.querySelector('fieldset'));
     window.form.adFormInputAddress.value = window.utils.getElementPosition(window.map.mapPinMain, window.pin.PIN_MAIN_ENABLED, true);
     window.form.adForm.classList.remove('ad-form--disabled');
-    window.data.generateSimilarOffers(window.pin.PINS_COUNT);
-    window.pin.renderPins(window.pin.PINS_COUNT);
-    window.card.renderCard(window.data.similarOffers[0]);
     disableMapFade(window.map.map);
     window.map.isPageActiveState = true;
   };
@@ -58,15 +55,30 @@
     window.form.adFormInputAddress.value = window.utils.getElementPosition(window.map.mapPinMain, window.pin.PIN_MAIN_DISABLED, false);
   };
 
+  var onLoadDataSuccess = function (data) {
+    window.data.generateSimilarOffers(data);
+    window.pin.renderPins(data.length);
+    window.card.renderCard(window.data.similarOffers[0]);
+    setPageActiveState();
+  };
+
+  var onLoadDataError = function () {
+    var errorBanner = document.querySelector('#error').content.querySelector('div');
+    var main = document.querySelector('main');
+    errorBanner.cloneNode(true);
+    main.insertBefore(errorBanner, main.children[0]);
+    setPageInactiveState();
+  };
+
   window.map.mapPinMain.addEventListener('mousedown', function () {
     if (!window.map.isPageActiveState) {
-      setPageActiveState();
+      window.backend.load(onLoadDataSuccess, onLoadDataError, window.backend.URL);
     }
   });
 
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.utils.ENTER_KEY && evt.target === window.map.mapPinMain && !window.map.isPageActiveState) {
-      setPageActiveState();
+      window.backend.load(onLoadDataSuccess, onLoadDataError, window.backend.URL);
     }
   });
 
