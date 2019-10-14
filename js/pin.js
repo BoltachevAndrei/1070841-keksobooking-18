@@ -5,11 +5,11 @@
   var mapPins = document.querySelector('.map__pins');
 
   window.pin = {
+    PINS_COUNT: 5,
     PIN: {
       WIDTH: 50,
       HEIGHT: 70
     },
-    PINS_COUNT: 8,
     PIN_MAIN_DISABLED: {
       WIDTH: 65,
       HEIGHT: 65
@@ -18,12 +18,14 @@
       WIDTH: 65,
       HEIGHT: 87
     },
-    renderPins: function (count) {
+    renderPins: function (offerData) {
       var pinsElement;
       var similarOffer = {};
+      var count = Math.min(offerData.length, window.pin.PINS_COUNT);
       var fragment = document.createDocumentFragment();
+      removePins();
       for (var i = 0; i < count; i++) {
-        similarOffer = window.data.similarOffers[i];
+        similarOffer = offerData[i];
         pinsElement = pinsTemplate.cloneNode(true);
         pinsElement.style = 'left: ' + (similarOffer.location.x - window.pin.PIN.WIDTH / 2) + 'px; top: ' + (similarOffer.location.y - window.pin.PIN.HEIGHT) + 'px;';
         pinsElement.querySelector('img').src = similarOffer.author.avatar;
@@ -57,7 +59,7 @@
 
   var onLoadDataSuccess = function (data) {
     window.data.generateSimilarOffers(data);
-    window.pin.renderPins(data.length);
+    window.pin.renderPins(data);
     window.card.renderCard(window.data.similarOffers[0]);
     setPageActiveState();
   };
@@ -68,6 +70,12 @@
     errorBanner.cloneNode(true);
     main.insertBefore(errorBanner, main.children[0]);
     setPageInactiveState();
+  };
+
+  var removePins = function () {
+    while (mapPins.firstChild) {
+      mapPins.removeChild(mapPins.firstChild);
+    }
   };
 
   window.map.mapPinMain.addEventListener('mousedown', function () {
