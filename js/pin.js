@@ -3,6 +3,7 @@
 (function () {
   var pinsTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var mapPins = document.querySelector('.map__pins');
+  var mapPinMain = mapPins.querySelector('.map__pin--main');
 
   window.pin = {
     PINS_COUNT: 5,
@@ -72,9 +73,12 @@
   };
 
   var removePins = function () {
-    while (mapPins.firstChild) {
-      mapPins.removeChild(mapPins.firstChild);
-    }
+    var pins = mapPins.querySelectorAll('.map__pin');
+    pins.forEach(function (element) {
+      if (element !== mapPinMain) {
+        element.parentNode.removeChild(element);
+      }
+    });
   };
 
   window.map.mapPinMain.addEventListener('mousedown', function () {
