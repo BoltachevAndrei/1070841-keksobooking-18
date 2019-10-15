@@ -14,17 +14,26 @@
   });
 
   var onHousingTypeChange = function (data) {
-    window.data.sortedOffers = [];
-    var count = 0;
-    for (var i = 0; i < data.length; i++) {
-      if (count === window.pin.PINS_COUNT) {
-        break;
+    var sortedOffers = [];
+    var auxiliaryArray = [];
+    var startPosition;
+    var endPosition;
+
+    data.sort(function (a, b) {
+      if (a.offer.type < b.offer.type) {
+        return -1;
+      } else if (a.offer.type > b.offer.type) {
+        return 1;
+      } else {
+        return 0;
       }
-      if (data[i].offer.type === housingType.value) {
-        window.data.sortedOffers[count] = data[i];
-        count++;
-      }
-    }
-    window.pin.renderPins(window.data.sortedOffers);
+    });
+    auxiliaryArray = data.map(function (element) {
+      return element.offer.type;
+    });
+    startPosition = auxiliaryArray.indexOf(housingType.value);
+    endPosition = auxiliaryArray.lastIndexOf(housingType.value);
+    sortedOffers = data.slice(startPosition, endPosition + 1).slice(0, window.pin.PINS_COUNT);
+    window.pin.renderPins(sortedOffers);
   };
 })();
