@@ -34,7 +34,6 @@
       'bungalo': 'Бунгало'
     },
     similarOffers: [],
-    sortedOffers: [],
     generateSimilarOffers: function (offerData) {
       for (var i = 0; i < offerData.length; i++) {
         window.data.similarOffers[i] = generateSimilarOffer(offerData[i]);
