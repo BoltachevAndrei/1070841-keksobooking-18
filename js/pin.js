@@ -60,7 +60,6 @@
   var onLoadDataSuccess = function (data) {
     window.data.generateSimilarOffers(data);
     window.pin.renderPins(data);
-    window.card.renderCard(window.data.similarOffers[0]);
     setPageActiveState();
   };
 
