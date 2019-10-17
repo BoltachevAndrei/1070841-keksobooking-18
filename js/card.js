@@ -4,13 +4,7 @@
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   var renderOfferType = function (offerType) {
-    var offerTypes = {
-      'palace': 'Дворец',
-      'flat': 'Квартира',
-      'house': 'Дом',
-      'bungalo': 'Бунгало'
-    };
-    return offerTypes[offerType];
+    return window.data.OFFER_TYPES[offerType];
   };
 
   var renderPhoto = function (offerPhoto, card) {

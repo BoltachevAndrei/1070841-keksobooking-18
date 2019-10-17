@@ -1,32 +1,42 @@
 'use strict';
 
 (function () {
+  var generateSimilarOffer = function (offerData) {
+    var similarOffer = {};
+    var author = {};
+    var offer = {};
+    var location = {};
+    author.avatar = offerData.author.avatar;
+    location.x = offerData.location.x;
+    location.y = offerData.location.y;
+    offer.title = offerData.offer.title;
+    offer.address = offerData.offer.address;
+    offer.price = offerData.offer.price;
+    offer.type = offerData.offer.type;
+    offer.room = offerData.offer.rooms;
+    offer.guest = offerData.offer.guests;
+    offer.checkin = offerData.offer.checkin;
+    offer.checkout = offerData.offer.checkout;
+    offer.feature = offerData.offer.features;
+    offer.description = offerData.offer.Description;
+    offer.photo = offerData.offer.photos;
+    similarOffer.author = author;
+    similarOffer.offer = offer;
+    similarOffer.location = location;
+    return similarOffer;
+  };
+
   window.data = {
+    OFFER_TYPES: {
+      'palace': 'Дворец',
+      'flat': 'Квартира',
+      'house': 'Дом',
+      'bungalo': 'Бунгало'
+    },
     similarOffers: [],
-    generateSimilarOffers: function (data) {
-      for (var i = 0; i < data.length; i++) {
-        var similarOffer = {};
-        var author = {};
-        var offer = {};
-        var location = {};
-        author.avatar = data[i].author.avatar;
-        location.x = data[i].location.x;
-        location.y = data[i].location.y;
-        offer.title = data[i].offer.title;
-        offer.address = data[i].offer.address;
-        offer.price = data[i].offer.price;
-        offer.type = data[i].offer.type;
-        offer.room = data[i].offer.rooms;
-        offer.guest = data[i].offer.guests;
-        offer.checkin = data[i].offer.checkin;
-        offer.checkout = data[i].offer.checkout;
-        offer.feature = data[i].offer.features;
-        offer.description = data[i].offer.Description;
-        offer.photo = data[i].offer.photos;
-        similarOffer.author = author;
-        similarOffer.offer = offer;
-        similarOffer.location = location;
-        window.data.similarOffers[i] = similarOffer;
+    generateSimilarOffers: function (offerData) {
+      for (var i = 0; i < offerData.length; i++) {
+        window.data.similarOffers[i] = generateSimilarOffer(offerData[i]);
       }
     }
   };
