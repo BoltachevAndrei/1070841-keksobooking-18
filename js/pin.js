@@ -20,21 +20,36 @@
       HEIGHT: 87
     },
     renderPins: function (offerData) {
-      var pinsElement;
-      var similarOffer = {};
       var count = Math.min(offerData.length, window.pin.PINS_COUNT);
       var fragment = document.createDocumentFragment();
       removePins();
+      window.data.sortedOffers = offerData.slice();
       for (var i = 0; i < count; i++) {
-        similarOffer = offerData[i];
-        pinsElement = pinsTemplate.cloneNode(true);
-        pinsElement.style = 'left: ' + (similarOffer.location.x - window.pin.PIN.WIDTH / 2) + 'px; top: ' + (similarOffer.location.y - window.pin.PIN.HEIGHT) + 'px;';
-        pinsElement.querySelector('img').src = similarOffer.author.avatar;
-        pinsElement.querySelector('img').alt = similarOffer.offer.title;
-        fragment.appendChild(pinsElement);
+        fragment.appendChild(renderPin(offerData[i]));
       }
       mapPins.appendChild(fragment);
     }
+  };
+
+  var onMapPinEnterPress = function (evt) {
+    window.utils.isEnterPressEvent(evt, function () {
+      showCard(evt.currentTarget);
+    });
+  };
+
+  var renderPin = function (offerData) {
+    var pinsElement;
+    var similarOffer = {};
+    similarOffer = offerData;
+    pinsElement = pinsTemplate.cloneNode(true);
+    pinsElement.style = 'left: ' + (similarOffer.location.x - window.pin.PIN.WIDTH / 2) + 'px; top: ' + (similarOffer.location.y - window.pin.PIN.HEIGHT) + 'px;';
+    pinsElement.querySelector('img').src = similarOffer.author.avatar;
+    pinsElement.querySelector('img').alt = similarOffer.offer.title;
+    pinsElement.addEventListener('click', function (evt) {
+      showCard(evt.currentTarget);
+    });
+    pinsElement.addEventListener('keydown', onMapPinEnterPress);
+    return pinsElement;
   };
 
   var disableMapFade = function (element) {
@@ -48,6 +63,7 @@
     window.form.adFormInputAddress.value = window.utils.getElementPosition(window.map.mapPinMain, window.pin.PIN_MAIN_ENABLED, true);
     window.form.adForm.classList.remove('ad-form--disabled');
     disableMapFade(window.map.map);
+    window.form.setGuestsValidValues();
     window.map.isPageActiveState = true;
   };
 
@@ -61,6 +77,7 @@
   var onLoadDataSuccess = function (data) {
     window.data.generateSimilarOffers(data);
     window.pin.renderPins(data);
+    window.form.setMaxPrice();
     setPageActiveState();
   };
 
@@ -92,6 +109,18 @@
       window.backend.load(onLoadDataSuccess, onLoadDataError, window.backend.URL);
     }
   });
+
+  var showCard = function (element) {
+    var parent = element.parentNode;
+    var index = Array.prototype.indexOf.call(parent.children, element) - 2;
+    window.card.renderCard(window.data.sortedOffers[index]);
+    var card = document.querySelector('.map__card');
+    var popupClose = card.querySelector('.popup__close');
+    popupClose.addEventListener('click', function () {
+      window.card.deleteCard();
+    });
+    document.addEventListener('keydown', window.card.onCardEscPress);
+  };
 
   setPageInactiveState();
 })();

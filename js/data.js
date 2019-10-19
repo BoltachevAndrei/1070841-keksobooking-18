@@ -13,13 +13,13 @@
     offer.address = offerData.offer.address;
     offer.price = offerData.offer.price;
     offer.type = offerData.offer.type;
-    offer.room = offerData.offer.rooms;
-    offer.guest = offerData.offer.guests;
+    offer.rooms = offerData.offer.rooms;
+    offer.guests = offerData.offer.guests;
     offer.checkin = offerData.offer.checkin;
     offer.checkout = offerData.offer.checkout;
-    offer.feature = offerData.offer.features;
+    offer.features = offerData.offer.features;
     offer.description = offerData.offer.Description;
-    offer.photo = offerData.offer.photos;
+    offer.photos = offerData.offer.photos;
     similarOffer.author = author;
     similarOffer.offer = offer;
     similarOffer.location = location;
@@ -34,6 +34,7 @@
       'bungalo': 'Бунгало'
     },
     similarOffers: [],
+    sortedOffers: [],
     generateSimilarOffers: function (offerData) {
       for (var i = 0; i < offerData.length; i++) {
         window.data.similarOffers[i] = generateSimilarOffer(offerData[i]);

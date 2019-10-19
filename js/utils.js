@@ -7,6 +7,7 @@
 
   window.utils = {
     ENTER_KEY: 13,
+    ESC_KEY: 27,
     getRandomElement: function (sourceArray) {
       return sourceArray[Math.floor(Math.random() * sourceArray.length)];
     },
@@ -76,6 +77,16 @@
         return ((left + Math.round(elementDimensions.WIDTH / 2)) + ', ' + (top + elementDimensions.HEIGHT));
       }
       return ((left + Math.round(elementDimensions.WIDTH / 2)) + ', ' + (top + Math.round(elementDimensions.HEIGHT / 2)));
+    },
+    isEnterPressEvent: function (evt, action) {
+      if (evt.keyCode === window.utils.ENTER_KEY) {
+        action();
+      }
+    },
+    isEscPressEvent: function (evt, action) {
+      if (evt.keyCode === window.utils.ESC_KEY) {
+        action();
+      }
     }
   };
 })();
