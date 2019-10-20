@@ -44,6 +44,7 @@
 
   window.card = {
     renderCard: function (similarOffer) {
+      window.card.deleteCard();
       var card = cardTemplate.cloneNode(true);
       card.querySelector('.popup__title').textContent = similarOffer.offer.title;
       card.querySelector('.popup__text--address').textContent = similarOffer.offer.address;
@@ -51,11 +52,21 @@
       card.querySelector('.popup__type').textContent = renderOfferType(similarOffer.offer.type);
       card.querySelector('.popup__text--capacity').textContent = similarOffer.offer.room + ' комнаты для ' + similarOffer.offer.guest + ' гостей';
       card.querySelector('.popup__text--time').textContent = 'Заезд после ' + similarOffer.offer.checkin + ', выезд до ' + similarOffer.offer.checkout;
-      renderFeature(similarOffer.offer.feature, card);
-      renderPhoto(similarOffer.offer.photo, card);
+      renderFeature(similarOffer.offer.features, card);
+      renderPhoto(similarOffer.offer.photos, card);
       card.querySelector('.popup__description').textContent = similarOffer.offer.description;
       card.querySelector('.popup__avatar').src = similarOffer.author.avatar;
       window.map.map.insertBefore(card, window.map.mapFilters);
+    },
+    deleteCard: function () {
+      var card = document.querySelector('.map__card');
+      if (card) {
+        card.parentNode.removeChild(card);
+        document.removeEventListener('keydown', window.card.onCardEscPress);
+      }
+    },
+    onCardEscPress: function (evt) {
+      window.utils.isEscPressEvent(evt, window.card.deleteCard);
     }
   };
 })();
