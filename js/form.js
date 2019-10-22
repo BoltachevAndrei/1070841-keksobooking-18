@@ -45,6 +45,8 @@
   var adFormPrice = adForm.querySelector('#price');
   var adFormCheckin = adForm.querySelector('#timein');
   var adFormCheckout = adForm.querySelector('#timeout');
+  var saveDataSuccessBanner = document.querySelector('#success').content.querySelector('.success');
+  var saveDataErrorBanner = document.querySelector('#error').content.querySelector('.error');
 
   var setElementValidValues = function (element, map) {
     for (var i = 0; i < element.children.length; i++) {
@@ -86,6 +88,61 @@
     return isValid;
   };
 
+  var createBanner = function (element) {
+    var banner = element.cloneNode(true);
+    document.querySelector('main').insertBefore(banner, document.querySelector('main').firstChild);
+  };
+
+  var deleteBanner = function (element) {
+    var banner = document.querySelector('main').querySelector('.' + element);
+    if (banner) {
+      banner.parentNode.removeChild(banner);
+      document.removeEventListener('keydown', onBannerPressEsc);
+    }
+  };
+
+  var onBannerPressEsc = function (evt, banner) {
+    window.utils.isEscPressEvent(evt, function () {
+      window.pin.setPageInactiveState();
+      deleteBanner(banner);
+    });
+  };
+
+  var onSaveDataSuccess = function () {
+    createBanner(saveDataSuccessBanner);
+    var banner = document.querySelector('main').querySelector('.success');
+    document.addEventListener('keydown', function (evt) {
+      onBannerPressEsc(evt, 'success');
+    });
+    banner.addEventListener('click', function () {
+      deleteBanner('success');
+    });
+    window.pin.setPageInactiveState();
+    adForm.reset();
+    window.pin.removePins();
+    window.card.deleteCard();
+  };
+
+  var onSaveDataError = function () {
+    createBanner(saveDataErrorBanner);
+    var banner = document.querySelector('main').querySelector('.error');
+    var errorButton = banner.querySelector('.error__button');
+    document.addEventListener('keydown', function (evt) {
+      onBannerPressEsc(evt, 'error');
+    });
+    banner.addEventListener('click', function () {
+      deleteBanner('error');
+    });
+    errorButton.addEventListener('click', function () {
+      deleteBanner('error');
+    });
+    errorButton.focus();
+    window.pin.setPageInactiveState();
+    adForm.reset();
+    window.pin.removePins();
+    window.card.deleteCard();
+  };
+
   adFormSubmit.addEventListener('click', function () {
     if (!checkElementValuesValidity(adFormRooms, adFormGuests, roomsToGuests)) {
       adFormGuests.setCustomValidity('Выбранное значение поля недоступно, необходимо выбрать доступное значение');
@@ -94,8 +151,13 @@
     }
   });
 
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(onSaveDataSuccess, onSaveDataError, new FormData(adForm), window.backend.URL);
+  });
+
   var onHousingTypeChange = function () {
-    window.form.setMaxPrice();
+    window.form.setMinPrice();
   };
 
   var onCheckinChange = function () {
@@ -123,10 +185,12 @@
     adForm: adForm,
     adFormFieldsets: adForm.querySelectorAll('fieldset'),
     adFormInputAddress: adForm.querySelector('#address'),
-    setMaxPrice: function () {
-      var maxPrice = housingTypeToMinPrice[adFormHousingType.value];
-      window.utils.setElementAttribute(adFormPrice, maxPrice);
-      adFormPrice.placeholder = maxPrice;
+    setMinPrice: function () {
+      var minPrice = {
+        min: housingTypeToMinPrice[adFormHousingType.value]
+      };
+      window.utils.setElementAttribute(adFormPrice, minPrice);
+      adFormPrice.placeholder = minPrice.min;
     },
     setGuestsValidValues: function () {
       setElementValidValues(adFormGuests, getElementValidValues(adFormRooms, roomsToGuests));
