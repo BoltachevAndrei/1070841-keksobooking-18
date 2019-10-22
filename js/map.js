@@ -5,8 +5,7 @@
   window.map = {
     isPageActiveState: false,
     map: document.querySelector('.map'),
-    mapFilters: document.querySelector('.map__filters-container'),
-    pinMain: document.querySelector('.map__pin--main')
+    mapFilters: document.querySelector('.map__filters-container')
   };
 
   housingType.addEventListener('change', function () {
