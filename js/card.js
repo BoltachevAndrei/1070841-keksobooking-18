@@ -50,7 +50,7 @@
       card.querySelector('.popup__text--address').textContent = similarOffer.offer.address;
       card.querySelector('.popup__text--price').innerHTML = similarOffer.offer.price + '&#x20bd;<span>/ночь</span>';
       card.querySelector('.popup__type').textContent = renderOfferType(similarOffer.offer.type);
-      card.querySelector('.popup__text--capacity').textContent = similarOffer.offer.room + ' комнаты для ' + similarOffer.offer.guest + ' гостей';
+      card.querySelector('.popup__text--capacity').textContent = similarOffer.offer.rooms + ' комнаты для ' + similarOffer.offer.guests + ' гостей';
       card.querySelector('.popup__text--time').textContent = 'Заезд после ' + similarOffer.offer.checkin + ', выезд до ' + similarOffer.offer.checkout;
       renderFeature(similarOffer.offer.features, card);
       renderPhoto(similarOffer.offer.photos, card);
