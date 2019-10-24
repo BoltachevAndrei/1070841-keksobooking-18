@@ -63,7 +63,7 @@
       }
     }
     for (var j = 0; j < checkBoxFilters.length; j++) {
-      if (checkBoxFilters[j].checked === false) {
+      if (!checkBoxFilters[j].checked) {
         continue;
       }
       window.data.sortedOffers = window.data.sortedOffers.filter(function (element) {
