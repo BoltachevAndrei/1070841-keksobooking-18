@@ -117,6 +117,7 @@
     window.utils.enableFormElement(window.map.mapFilters.querySelector('fieldset'));
     window.form.adFormInputAddress.value = window.utils.getElementPosition(pinMain, PIN_MAIN_ENABLED, true);
     window.form.adForm.classList.remove('ad-form--disabled');
+    window.map.setFilterEventListeners();
     window.map.isPageActiveState = true;
     window.form.setGuestsValidValues();
     disableMapFade();
@@ -138,11 +139,9 @@
   };
 
   var removePins = function () {
-    var pins = pinsContainer.querySelectorAll('.map__pin');
+    var pins = pinsContainer.querySelectorAll('.map__pin:not(.map__pin--main)');
     pins.forEach(function (element) {
-      if (element !== pinMain) {
-        element.parentNode.removeChild(element);
-      }
+      element.parentNode.removeChild(element);
     });
   };
 

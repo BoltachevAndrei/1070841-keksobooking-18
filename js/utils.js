@@ -4,6 +4,7 @@
   var DISABLED_ATTRIBUTE = {
     disabled: ''
   };
+  var DEBOUNCE_INTERVAL = 500;
 
   window.utils = {
     ENTER_KEY: 13,
@@ -87,6 +88,18 @@
       if (evt.keyCode === window.utils.ESC_KEY) {
         action();
       }
+    },
+    debounce: function (cb) {
+      var lastTimeout = null;
+      return function () {
+        var parameters = arguments;
+        if (lastTimeout) {
+          window.clearTimeout(lastTimeout);
+        }
+        lastTimeout = window.setTimeout(function () {
+          cb.apply(null, parameters);
+        }, DEBOUNCE_INTERVAL);
+      };
     }
   };
 })();
