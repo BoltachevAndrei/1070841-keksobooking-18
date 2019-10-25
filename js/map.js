@@ -36,6 +36,14 @@
       for (var j = 0; j < checkBoxFilters.length; j++) {
         setFilterEventListener(checkBoxFilters[j]);
       }
+    },
+    resetFilters: function () {
+      for (var i = 0; i < selectFilters.length; i++) {
+        selectFilters[i].value = FILTER_SELECT_ALL;
+      }
+      for (var j = 0; j < checkBoxFilters.length; j++) {
+        checkBoxFilters[j].checked = false;
+      }
     }
   };
 

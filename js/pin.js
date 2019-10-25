@@ -53,6 +53,7 @@
       window.form.adForm.classList.add('ad-form--disabled');
       window.map.isPageActiveState = false;
       setPinMainDefaultPosition();
+      window.map.resetFilters();
       enableMapFade();
     },
     removePins: function () {

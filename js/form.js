@@ -48,6 +48,7 @@
 
   var adForm = document.querySelector('.ad-form');
   var adFormSubmit = adForm.querySelector('.ad-form__submit');
+  var adFormReset = adForm.querySelector('.ad-form__reset');
   var adFormRooms = adForm.querySelector('#room_number');
   var adFormGuests = adForm.querySelector('#capacity');
   var adFormTitle = adForm.querySelector('#title');
@@ -198,9 +199,15 @@
     }
   });
 
+  adFormReset.addEventListener('click', function () {
+    window.pin.setPageInactiveState();
+    adForm.reset();
+  });
+
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(onSaveDataSuccess, onSaveDataError, new FormData(adForm), window.backend.URL);
+    adForm.reset();
   });
 
   var onHousingTypeChange = function () {
