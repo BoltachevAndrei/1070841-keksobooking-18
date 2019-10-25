@@ -34,7 +34,7 @@
   var DISABLED_ATTRIBUTE = {
     disabled: ''
   };
-  var IMAGE_EXTENSIONS = ['bmp', 'svg', 'jpg', 'jpeg'];
+  var IMAGE_EXTENSIONS = ['bmp', 'svg', 'jpg', 'jpeg', 'png', 'gif'];
   var previewTypeToSizes = {
     'avatar': {
       width: 40,
