@@ -9,26 +9,6 @@
   window.utils = {
     ENTER_KEY: 13,
     ESC_KEY: 27,
-    getRandomElement: function (sourceArray) {
-      return sourceArray[Math.floor(Math.random() * sourceArray.length)];
-    },
-    getRandomArray: function (sourceArray) {
-      var resultArray = [];
-      var tempArray = sourceArray.slice();
-      var pickedElements = [];
-      resultArray.length = Math.round(Math.random() * sourceArray.length);
-      for (var i = 0; i < resultArray.length; i++) {
-        pickedElements = tempArray.splice((Math.floor(Math.random() * tempArray.length)), 1);
-        resultArray[i] = pickedElements[0];
-      }
-      return resultArray;
-    },
-    generateString: function (text, prefix, suffix) {
-      return prefix + text + suffix;
-    },
-    generateNumber: function (min, max, step) {
-      return Math.round((Math.random() * ((max - min) / step))) * step + min;
-    },
     setElementAttribute: function (element, elementAttributes) {
       for (var elementAttribute in elementAttributes) {
         if (elementAttributes.hasOwnProperty(elementAttribute)) {
