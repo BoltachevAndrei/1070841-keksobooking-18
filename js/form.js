@@ -34,6 +34,17 @@
   var DISABLED_ATTRIBUTE = {
     disabled: ''
   };
+  var IMAGE_EXTENSIONS = ['bmp', 'svg', 'jpg', 'jpeg', 'png', 'gif'];
+  var previewTypeToSizes = {
+    'avatar': {
+      width: 40,
+      heigth: 44
+    },
+    'images': {
+      width: 70,
+      heigth: 70
+    }
+  };
 
   var adForm = document.querySelector('.ad-form');
   var adFormSubmit = adForm.querySelector('.ad-form__submit');
@@ -47,6 +58,42 @@
   var adFormCheckout = adForm.querySelector('#timeout');
   var saveDataSuccessBanner = document.querySelector('#success').content.querySelector('.success');
   var saveDataErrorBanner = document.querySelector('#error').content.querySelector('.error');
+  var avatarChooser = document.querySelector('#avatar');
+  var avatarPreview = document.querySelector('.ad-form-header__preview');
+  var offerPhotoChooser = document.querySelector('#images');
+  var offerPhotoPreview = document.querySelector('.ad-form__photo');
+
+  avatarChooser.addEventListener('change', function () {
+    uploadImage(avatarChooser, avatarPreview);
+  });
+
+  offerPhotoChooser.addEventListener('change', function () {
+    uploadImage(offerPhotoChooser, offerPhotoPreview);
+  });
+
+  var uploadImage = function (chooserElement, previewContainer) {
+    var file = chooserElement.files[0];
+    if (file) {
+      var isPicture = IMAGE_EXTENSIONS.some(function (element) {
+        return file.name.toLowerCase().endsWith(element);
+      });
+      if (isPicture) {
+        var previewImage = previewContainer.querySelector('img');
+        if (!previewImage) {
+          var img = document.createElement('img');
+          img.width = previewTypeToSizes[chooserElement.id].width;
+          img.heigth = previewTypeToSizes[chooserElement.id].heigth;
+          previewContainer.appendChild(img);
+          previewImage = previewContainer.querySelector('img');
+        }
+        var reader = new FileReader();
+        reader.addEventListener('load', function () {
+          previewImage.src = reader.result;
+        });
+        reader.readAsDataURL(file);
+      }
+    }
+  };
 
   var setElementValidValues = function (element, map) {
     for (var i = 0; i < element.children.length; i++) {
