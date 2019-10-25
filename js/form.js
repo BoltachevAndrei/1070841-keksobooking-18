@@ -166,9 +166,6 @@
       deleteBanner('success');
     });
     window.pin.setPageInactiveState();
-    adForm.reset();
-    window.pin.removePins();
-    window.card.deleteCard();
   };
 
   var onSaveDataError = function () {
@@ -186,9 +183,6 @@
     });
     errorButton.focus();
     window.pin.setPageInactiveState();
-    adForm.reset();
-    window.pin.removePins();
-    window.card.deleteCard();
   };
 
   adFormSubmit.addEventListener('click', function () {
@@ -201,7 +195,6 @@
 
   adFormReset.addEventListener('click', function () {
     window.pin.setPageInactiveState();
-    adForm.reset();
   });
 
   adForm.addEventListener('submit', function (evt) {
