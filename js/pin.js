@@ -5,7 +5,7 @@
     WIDTH: 50,
     HEIGHT: 70
   };
-  var PIN_MAIN_POSITON = {
+  var PIN_MAIN_POSITION = {
     MIN: {
       X: 0,
       Y: 130
@@ -170,10 +170,10 @@
     var shift = new Coordinate(pinMainStartPosition.x - moveEvt.clientX, pinMainStartPosition.y - moveEvt.clientY);
     pinMainStartPosition.setX(moveEvt.clientX);
     pinMainStartPosition.setY(moveEvt.clientY);
-    if ((pinMain.offsetTop - shift.y) >= (PIN_MAIN_POSITON.MIN.Y - PIN_MAIN_ENABLED.HEIGHT) && (pinMain.offsetTop - shift.y) <= (PIN_MAIN_POSITON.MAX.Y - PIN_MAIN_ENABLED.HEIGHT)) {
+    if ((pinMain.offsetTop - shift.y) >= (PIN_MAIN_POSITION.MIN.Y - PIN_MAIN_ENABLED.HEIGHT) && (pinMain.offsetTop - shift.y) <= (PIN_MAIN_POSITION.MAX.Y - PIN_MAIN_ENABLED.HEIGHT)) {
       pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
     }
-    if ((pinMain.offsetLeft - shift.x) > (PIN_MAIN_POSITON.MIN.X - PIN_MAIN_ENABLED.WIDTH / 2) && (pinMain.offsetLeft - shift.x) < (PIN_MAIN_POSITON.MAX.X - PIN_MAIN_ENABLED.WIDTH / 2)) {
+    if ((pinMain.offsetLeft - shift.x) > (PIN_MAIN_POSITION.MIN.X - PIN_MAIN_ENABLED.WIDTH / 2) && (pinMain.offsetLeft - shift.x) < (PIN_MAIN_POSITION.MAX.X - PIN_MAIN_ENABLED.WIDTH / 2)) {
       pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
     }
     window.form.adFormInputAddress.value = window.utils.getElementPosition(pinMain, PIN_MAIN_ENABLED, true);
