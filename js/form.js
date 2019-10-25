@@ -4,7 +4,7 @@
   var FORM_ATTRIBUTES = {
     method: 'post',
     enctype: 'multipart/form-data',
-    action: 'https://js.dump.academy/keksobooking',
+    action: window.backend.URL,
     autocomplete: 'off'
   };
   var INPUT_TITLE_ATTRIBUTES = {
